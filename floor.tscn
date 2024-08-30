@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://mw7ors8stjbt"]
+
+[ext_resource type="Texture2D" uid="uid://duu8ib7217rby" path="res://assets/sprites/base.png" id="1_gtnwo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvc03"]
+size = Vector2(1281, 109)
+
+[node name="TextureRect" type="TextureRect"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -112.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_gtnwo")
+stretch_mode = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(640.5, 56.5)
+shape = SubResource("RectangleShape2D_qvc03")

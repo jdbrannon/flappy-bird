@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://sevv80o1xxuh"]
+[gd_scene load_steps=6 format=3 uid="uid://sevv80o1xxuh"]
 
 [ext_resource type="Texture2D" uid="uid://cumls8a4lhuh8" path="res://assets/sprites/background-day.png" id="1_l17a7"]
+[ext_resource type="Script" path="res://Main.cs" id="1_t38vw"]
 [ext_resource type="PackedScene" uid="uid://dw3kb6yal1ejl" path="res://Bird.tscn" id="1_v12xy"]
+[ext_resource type="PackedScene" uid="uid://cvr3qk2fe57w0" path="res://TopBottomPipe.tscn" id="3_yi38y"]
+[ext_resource type="PackedScene" uid="uid://mw7ors8stjbt" path="res://floor.tscn" id="4_yh0p3"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_t38vw")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_v12xy")]
+[node name="Bird" parent="." instance=ExtResource("1_v12xy")]
+z_index = 1
 position = Vector2(128, 341)
 
 [node name="Background" type="TextureRect" parent="."]
@@ -19,3 +24,10 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("1_l17a7")
 stretch_mode = 1
+
+[node name="Floor" parent="." instance=ExtResource("4_yh0p3")]
+offset_top = -114.0
+offset_bottom = -2.0
+
+[node name="CanvasGroup" parent="." instance=ExtResource("3_yi38y")]
+position = Vector2(45, 19)

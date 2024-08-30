@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmeaepj1ng68k"]
+
+[ext_resource type="Texture2D" uid="uid://djnye7f3otc3o" path="res://assets/sprites/pipe-green.png" id="1_ixu27"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5wsa"]
+size = Vector2(48, 638)
+
+[node name="DoubleSidedPipe" type="RigidBody2D"]
+collision_layer = 4
+gravity_scale = 0.0
+
+[node name="PipeCollision" type="CollisionShape2D" parent="."]
+position = Vector2(567, 356)
+shape = SubResource("RectangleShape2D_j5wsa")
+
+[node name="TopPipe" type="Sprite2D" parent="."]
+position = Vector2(567, 196)
+texture = ExtResource("1_ixu27")
+
+[node name="BottomPipe" type="Sprite2D" parent="."]
+position = Vector2(567, 515)
+texture = ExtResource("1_ixu27")
+flip_v = true
