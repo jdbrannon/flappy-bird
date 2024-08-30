@@ -1,16 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://sevv80o1xxuh"]
+[gd_scene load_steps=6 format=3 uid="uid://sevv80o1xxuh"]
 
 [ext_resource type="Texture2D" uid="uid://cumls8a4lhuh8" path="res://assets/sprites/background-day.png" id="1_l17a7"]
 [ext_resource type="Script" path="res://Main.cs" id="1_t38vw"]
 [ext_resource type="PackedScene" uid="uid://dw3kb6yal1ejl" path="res://Bird.tscn" id="1_v12xy"]
-[ext_resource type="PackedScene" uid="uid://cvr3qk2fe57w0" path="res://TopBottomPipe.tscn" id="3_yi38y"]
 [ext_resource type="PackedScene" uid="uid://mw7ors8stjbt" path="res://floor.tscn" id="4_yh0p3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y62xd"]
 size = Vector2(275, 3183)
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" node_paths=PackedStringArray("camera", "bird")]
 script = ExtResource("1_t38vw")
+camera = NodePath("Camera2D")
+bird = NodePath("Bird")
 
 [node name="Bird" parent="." instance=ExtResource("1_v12xy")]
 z_index = 1
@@ -32,9 +33,6 @@ stretch_mode = 1
 offset_top = -114.0
 offset_bottom = -2.0
 
-[node name="CanvasGroup" parent="." instance=ExtResource("3_yi38y")]
-position = Vector2(0, -1)
-
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 4
@@ -42,3 +40,5 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-137.5, 443.5)
 shape = SubResource("RectangleShape2D_y62xd")
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -38,5 +38,3 @@ frame_progress = 0.0458061
 [node name="Bird_Collision" type="CollisionShape2D" parent="."]
 scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_l1ej1")
-
-[node name="Camera2D" type="Camera2D" parent="."]

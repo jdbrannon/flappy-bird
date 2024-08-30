@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://cvr3qk2fe57w0"]
 
-[ext_resource type="PackedScene" uid="uid://dmeaepj1ng68k" path="res://pipe.tscn" id="1_v4j51"]
+[ext_resource type="PackedScene" uid="uid://dmeaepj1ng68k" path="res://DoubleSidedPipe.tscn" id="1_v4j51"]
 
 [node name="TopBottomPipe" type="CanvasGroup"]
 
 [node name="TopPipe" parent="." instance=ExtResource("1_v4j51")]
-position = Vector2(0, 350)
+position = Vector2(0, 375)
 
 [node name="BottomPipe" parent="." instance=ExtResource("1_v4j51")]
-position = Vector2(0, -400)
+position = Vector2(0, -375)
