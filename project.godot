@@ -42,6 +42,7 @@ flap={
 2d_physics/layer_1="bird"
 2d_physics/layer_2="floor"
 2d_physics/layer_3="pipes"
+2d_physics/layer_4="offscreen"
 
 [rendering]
 
