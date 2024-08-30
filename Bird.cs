@@ -6,7 +6,7 @@ public partial class Bird : CharacterBody2D
 	[Export]
 	public AnimatedSprite2D bird_sprite;
 	
-	public const float JumpVelocity = -400.0f;
+	public const float JumpVelocity = -500.0f;
 	public const float Speed = 250f;
 	
 	public override void _Ready()

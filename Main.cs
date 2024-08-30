@@ -8,13 +8,13 @@ public partial class Main : Node
 	[Export]
 	public CharacterBody2D bird;
 
-	private const float PipeOffset = 200;
+	private const float PipeOffset = 300;
 	private readonly float _screenWidth = (float) ProjectSettings.GetSetting("display/window/size/viewport_width");
 	private readonly float _screenHeight = (float) ProjectSettings.GetSetting("display/window/size/viewport_height");
 	private PackedScene _floorScene;
 	private PackedScene _topBottomPipeScene;
 	private readonly RandomNumberGenerator _rng = new RandomNumberGenerator();
-	
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -34,11 +34,16 @@ public partial class Main : Node
 
 		if (bird.Position.X - LastPipeX + _screenWidth > PipeOffset)
 		{
-			CreatePipe();
+			CreateNextPipe();
+		}
+
+		if (bird.Position.X + _screenWidth > LastFloorX)
+		{
+			CreateNextFloor();
 		}
 	}
 
-	private void CreatePipe()
+	private void CreateNextPipe()
 	{
 		var curPipe = (CanvasGroup) _topBottomPipeScene.Instantiate();
 		AddChild(curPipe);
@@ -47,14 +52,14 @@ public partial class Main : Node
 		LastPipeX = LastPipeX + PipeOffset;
 	}
 
-	// private void CreateFloor()
-	// {
-	// 	var curPipe = (CanvasGroup) _topBottomPipeScene.Instantiate();
-	// 	AddChild(curPipe);
+	private void CreateNextFloor()
+	{
+		var curFloor = (CanvasGroup) _floorScene.Instantiate();
+		AddChild(curFloor);
 
-	// 	curPipe.Position = new Godot.Vector2(_lastPipeXPosition + PipeOffset, camera.Position.Y);
-	// 	_lastPipeXPosition = _lastPipeXPosition + PipeOffset;
-	// }
+		curFloor.Position = new Vector2(LastFloorX + _screenWidth, 0);
+		LastFloorX = LastFloorX + _screenWidth;
+	}
 
 	private void InitializePipes()
 	{
@@ -63,15 +68,16 @@ public partial class Main : Node
 		var pipeOnScreen = true;
 		while(pipeOnScreen)
 		{
-			CreatePipe();
+			CreateNextPipe();
 
 			if(LastPipeX + PipeOffset > _screenWidth)
 				pipeOnScreen = false;
 		}
 	}
 
-	private float NextPipeY => _screenHeight / 2 + (float) Math.Round((double) _rng.RandfRange(-5, 5)) * _screenHeight / 10;
-	private float NextPipeX => LastPipeX + PipeOffset;
 	private float LastPipeX { get; set; }
+	private float NextPipeY => _screenHeight / 2 + (float) Math.Round((double) _rng.RandfRange(-5, 5)) * _screenHeight / 30;
+	private float NextPipeX => LastPipeX + PipeOffset;
 	private float LastFloorX { get; set; } = 0;
+	private float NextFloorX => LastFloorX + _screenWidth;
 }
