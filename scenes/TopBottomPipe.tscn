@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cvr3qk2fe57w0"]
 
-[ext_resource type="PackedScene" uid="uid://dmeaepj1ng68k" path="res://DoubleSidedPipe.tscn" id="1_v4j51"]
+[ext_resource type="PackedScene" uid="uid://dmeaepj1ng68k" path="res://scenes/DoubleSidedPipe.tscn" id="1_v4j51"]
 
 [node name="TopBottomPipe" type="CanvasGroup"]
 
