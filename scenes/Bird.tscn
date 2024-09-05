@@ -23,6 +23,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l1ej1"]
+radius = 6.75463
 
 [node name="Bird" type="CharacterBody2D" node_paths=PackedStringArray("bird_sprite")]
 collision_mask = 7
@@ -30,11 +31,11 @@ script = ExtResource("1_dj2jx")
 bird_sprite = NodePath("Bird_Sprite")
 
 [node name="Bird_Sprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_o8un8")
 animation = &"Fly"
 frame_progress = 0.0458061
 
 [node name="Bird_Collision" type="CollisionShape2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 shape = SubResource("CircleShape2D_l1ej1")

@@ -1,11 +1,37 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvr3qk2fe57w0"]
+[gd_scene load_steps=4 format=3 uid="uid://cvr3qk2fe57w0"]
 
-[ext_resource type="PackedScene" uid="uid://dmeaepj1ng68k" path="res://scenes/DoubleSidedPipe.tscn" id="1_v4j51"]
+[ext_resource type="Texture2D" uid="uid://djnye7f3otc3o" path="res://assets/sprites/pipe-green.png" id="1_hacsi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvv01"]
+size = Vector2(96, 639)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjgr6"]
+size = Vector2(96, 638)
 
 [node name="TopBottomPipe" type="CanvasGroup"]
 
-[node name="TopPipe" parent="." instance=ExtResource("1_v4j51")]
-position = Vector2(0, 400)
-
-[node name="BottomPipe" parent="." instance=ExtResource("1_v4j51")]
+[node name="TopPipe" type="RigidBody2D" parent="."]
 position = Vector2(0, -400)
+collision_layer = 4
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopPipe"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_hvv01")
+
+[node name="Sprite2D" type="Sprite2D" parent="TopPipe"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_hacsi")
+flip_v = true
+
+[node name="BottomPipe" type="RigidBody2D" parent="."]
+position = Vector2(0, 400)
+collision_layer = 4
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomPipe"]
+shape = SubResource("RectangleShape2D_xjgr6")
+
+[node name="Sprite2D" type="Sprite2D" parent="BottomPipe"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_hacsi")
