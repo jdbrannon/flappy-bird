@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.InteropServices;
 
 public partial class Bird : CharacterBody2D
 {
@@ -13,10 +14,10 @@ public partial class Bird : CharacterBody2D
 	public Sprite2D GameOverNode;
 	[Export]
 	public RichTextLabel ScoreNode;
-
 	
 	public const float JumpVelocity = -350f;
 	public const float Speed = 200f;
+	public const float RotationSpeed = 135f;
 	
 	public override void _Ready()
 	{
@@ -27,6 +28,7 @@ public partial class Bird : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
+		float rotation = Rotation;
 
 		if (GetSlideCollisionCount() > 0 && !IsDead)
 		{
@@ -52,10 +54,24 @@ public partial class Bird : CharacterBody2D
 		{
 			velocity.Y = JumpVelocity;
 			FlapSound.Play();
+			SetRotationDegrees(-45);
 		}
 
 		Velocity = velocity;
+		CalculateRotation((float) delta);
 		MoveAndSlide();
+	}
+
+	private void CalculateRotation(float delta)
+	{
+		var rotationChange = 0f;
+		
+		if (RotationDegrees < 90)
+		{
+			rotationChange = RotationSpeed * delta;
+		}
+
+		SetRotationDegrees(RotationDegrees + rotationChange);
 	}
 
 	public bool IsDead { get; private set; } = false;
