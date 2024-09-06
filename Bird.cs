@@ -57,21 +57,14 @@ public partial class Bird : CharacterBody2D
 			SetRotationDegrees(-45);
 		}
 
-		Velocity = velocity;
-		CalculateRotation((float) delta);
-		MoveAndSlide();
-	}
-
-	private void CalculateRotation(float delta)
-	{
-		var rotationChange = 0f;
-		
+		// Calculate rotation
 		if (RotationDegrees < 90)
 		{
-			rotationChange = RotationSpeed * delta;
+			SetRotationDegrees(RotationDegrees + RotationSpeed * (float)delta);
 		}
 
-		SetRotationDegrees(RotationDegrees + rotationChange);
+		Velocity = velocity;
+		MoveAndSlide();
 	}
 
 	public bool IsDead { get; private set; } = false;
