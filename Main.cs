@@ -9,6 +9,8 @@ public partial class Main : Node
 	public CharacterBody2D Bird;
 	[Export]
 	public RichTextLabel ScoreNode;
+	[Export]
+	public AudioStreamPlayer ScoreAudio;
 
 	private List<IPackedScenePlacement> _scenePlacementServices = new List<IPackedScenePlacement>();
 	private ScoreService _scoreService;
@@ -46,6 +48,7 @@ public partial class Main : Node
 		if (_scoreService.ShouldIncrementScore(Bird.Position.X))
 		{
 			_scoreService.IncrementScore();
+			ScoreAudio.Play();
 		}
 	}
 }

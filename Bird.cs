@@ -4,14 +4,17 @@ using System;
 public partial class Bird : CharacterBody2D
 {
 	[Export]
-	public AnimatedSprite2D bird_sprite;
+	public AnimatedSprite2D BirdSprite;
+	[Export]
+	public AudioStreamPlayer FlapSound;
+
 	
 	public const float JumpVelocity = -350f;
 	public const float Speed = 200f;
 	
 	public override void _Ready()
 	{
-		bird_sprite.Play("Fly");
+		BirdSprite.Play("Fly");
 		Velocity = new Vector2(Speed, 0);
 	}
 
@@ -29,6 +32,7 @@ public partial class Bird : CharacterBody2D
 		if (Input.IsActionJustPressed("flap"))
 		{
 			velocity.Y = JumpVelocity;
+			FlapSound.Play();
 		}
 
 		Velocity = velocity;

@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://sevv80o1xxuh"]
+[gd_scene load_steps=5 format=3 uid="uid://sevv80o1xxuh"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_t38vw"]
 [ext_resource type="PackedScene" uid="uid://dw3kb6yal1ejl" path="res://scenes/Bird.tscn" id="1_v12xy"]
 [ext_resource type="PackedScene" uid="uid://daj6h5o8kmifg" path="res://scenes/score.tscn" id="3_tfnox"]
+[ext_resource type="AudioStream" uid="uid://btm8hcs8l3dyh" path="res://assets/audio/point.wav" id="4_pylj6"]
 
-[node name="Main" type="Node" node_paths=PackedStringArray("Camera", "Bird", "ScoreNode")]
+[node name="Main" type="Node" node_paths=PackedStringArray("Camera", "Bird", "ScoreNode", "ScoreAudio")]
 script = ExtResource("1_t38vw")
 Camera = NodePath("Camera2D")
 Bird = NodePath("Bird")
 ScoreNode = NodePath("Camera2D/Score")
+ScoreAudio = NodePath("Camera2D/ScoreAudio")
 
 [node name="Bird" parent="." instance=ExtResource("1_v12xy")]
 z_index = 1
@@ -21,4 +23,5 @@ position = Vector2(640, 360)
 offset_top = -340.0
 offset_bottom = -304.0
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera2D"]
+[node name="ScoreAudio" type="AudioStreamPlayer" parent="Camera2D"]
+stream = ExtResource("4_pylj6")
