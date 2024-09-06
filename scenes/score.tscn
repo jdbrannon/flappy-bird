@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://daj6h5o8kmifg"]
+
+[node name="Score" type="RichTextLabel"]
+offset_left = -150.0
+offset_top = -16.0
+offset_right = 150.0
+offset_bottom = 20.0
+bbcode_enabled = true
+text = "[center][img]assets/sprites/0.png[/img][/center]"
+autowrap_mode = 0

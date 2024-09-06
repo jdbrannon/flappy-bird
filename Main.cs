@@ -1,42 +1,51 @@
-using System;
 using System.Collections.Generic;
 using Godot;
 
 public partial class Main : Node
 {
 	[Export]
-	public Camera2D camera;
+	public Camera2D Camera;
 	[Export]
-	public CharacterBody2D bird;
+	public CharacterBody2D Bird;
+	[Export]
+	public RichTextLabel ScoreNode;
 
 	private List<IPackedScenePlacement> _scenePlacementServices = new List<IPackedScenePlacement>();
+	private ScoreService _scoreService;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		camera.Position = new Vector2(bird.Position.X, bird.Position.Y);
+		var topBottomPipeScenePlacement = new TopBottomPipeScenePlacement(this);
+
+		_scoreService = new ScoreService(ScoreNode, topBottomPipeScenePlacement.NextSceneX, topBottomPipeScenePlacement.XOffset);
 
 		_scenePlacementServices.Add(new BackgroundScenePlacement(this));
 		_scenePlacementServices.Add(new FloorScenePlacement(this));
-		_scenePlacementServices.Add(new TopBottomPipeScenePlacement(this));
+		_scenePlacementServices.Add(topBottomPipeScenePlacement);
 
 		foreach(var scenePlacementService in _scenePlacementServices)
 		{
-			scenePlacementService.InitializeScenes(camera.Position);
+			scenePlacementService.InitializeScenes(Camera.Position);
 		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		camera.Position = new Vector2(bird.Position.X, camera.Position.Y);
+		Camera.Position = new Vector2(Bird.Position.X, Camera.Position.Y);
 
 		foreach(var scenePlacementService in _scenePlacementServices)
 		{
-			if (scenePlacementService.ShouldPlaceNextScene(camera.Position))
+			if (scenePlacementService.ShouldPlaceNextScene(Camera.Position))
 			{
 				scenePlacementService.PlaceNextScene();
 			}
+		}
+
+		if (_scoreService.ShouldIncrementScore(Bird.Position.X))
+		{
+			_scoreService.IncrementScore();
 		}
 	}
 }
