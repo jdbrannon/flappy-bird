@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dw3kb6yal1ejl"]
+[gd_scene load_steps=9 format=3 uid="uid://dw3kb6yal1ejl"]
 
 [ext_resource type="Script" path="res://Bird.cs" id="1_dj2jx"]
 [ext_resource type="Texture2D" uid="uid://cgpgprvu2loey" path="res://assets/sprites/yellowbird-downflap.png" id="1_xtf3r"]
 [ext_resource type="Texture2D" uid="uid://dgcs10hgiteh0" path="res://assets/sprites/yellowbird-midflap.png" id="2_swdil"]
 [ext_resource type="Texture2D" uid="uid://by0ttcexjart4" path="res://assets/sprites/yellowbird-upflap.png" id="3_42iia"]
 [ext_resource type="AudioStream" uid="uid://b4e7tx0vf7bip" path="res://assets/audio/wing.wav" id="5_xi038"]
+[ext_resource type="AudioStream" uid="uid://dqocpue4cc2tf" path="res://assets/audio/die.wav" id="6_bw51l"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o8un8"]
 animations = [{
@@ -21,22 +22,30 @@ animations = [{
 "loop": true,
 "name": &"Fly",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_swdil")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l1ej1"]
 radius = 6.75463
 
-[node name="Bird" type="CharacterBody2D" node_paths=PackedStringArray("BirdSprite", "FlapSound")]
+[node name="Bird" type="CharacterBody2D" node_paths=PackedStringArray("BirdSprite", "FlapSound", "DieAudio")]
 collision_mask = 7
 script = ExtResource("1_dj2jx")
 BirdSprite = NodePath("Bird_Sprite")
 FlapSound = NodePath("FlapAudio")
+DieAudio = NodePath("DieAudio")
 
 [node name="Bird_Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_o8un8")
-animation = &"Fly"
-frame_progress = 0.0458061
+animation = &"Idle"
 
 [node name="Bird_Collision" type="CollisionShape2D" parent="."]
 scale = Vector2(4, 4)
@@ -44,3 +53,6 @@ shape = SubResource("CircleShape2D_l1ej1")
 
 [node name="FlapAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_xi038")
+
+[node name="DieAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_bw51l")
