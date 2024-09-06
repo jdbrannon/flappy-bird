@@ -12,6 +12,8 @@ public partial class Bird : CharacterBody2D
 	public Sprite2D GameOverNode;
 	[Export]
 	public RichTextLabel ScoreNode;
+	[Export]
+	public Sprite2D GetReadyNode;
 	
 	public const float JumpVelocity = -500f;
 	public const float Speed = 200f;
@@ -21,11 +23,25 @@ public partial class Bird : CharacterBody2D
 	public override void _Ready()
 	{
 		BirdSprite.Play("Fly");
-		Velocity = new Vector2(Speed, 0);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if(!Started)
+		{
+			if(Input.IsActionJustPressed("flap"))
+			{
+				Velocity = new Vector2(Speed, 0);
+				Visible = true;
+				Started = true;
+				GetReadyNode.Visible = false;
+			}
+			else
+			{
+				return;
+			}
+		}
+
 		Vector2 velocity = Velocity;
 
 		if (JustDied)
@@ -68,6 +84,7 @@ public partial class Bird : CharacterBody2D
 		MoveAndSlide();
 	}
 
+	public bool Started { get; private set; } = false;
 	public bool IsDead { get; private set; } = false;
 	private bool JustDied => !IsDead && GetSlideCollisionCount() > 0;
 }
