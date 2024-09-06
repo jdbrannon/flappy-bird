@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Runtime.InteropServices;
 
 public partial class Bird : CharacterBody2D
 {
@@ -15,9 +13,10 @@ public partial class Bird : CharacterBody2D
 	[Export]
 	public RichTextLabel ScoreNode;
 	
-	public const float JumpVelocity = -350f;
+	public const float JumpVelocity = -500f;
 	public const float Speed = 200f;
-	public const float RotationSpeed = 135f;
+	public const float RotationSpeed = 270f;
+	public const int PipeCollisionLayer = 4;
 	
 	public override void _Ready()
 	{
@@ -28,14 +27,16 @@ public partial class Bird : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
-		float rotation = Rotation;
 
-		if (GetSlideCollisionCount() > 0 && !IsDead)
+		if (JustDied)
 		{
-			velocity = new Vector2(0, 0);
+			velocity = new Vector2(0, Velocity.Y);
 			DieAudio.Play();
 			BirdSprite.Play("Idle");
 			IsDead = true;
+
+			// Disable pipe collision so that bird can freely fall to the ground
+			CollisionMask = CollisionMask - PipeCollisionLayer;
 		}
 
 		// Add the gravity.
@@ -54,11 +55,11 @@ public partial class Bird : CharacterBody2D
 		{
 			velocity.Y = JumpVelocity;
 			FlapSound.Play();
-			SetRotationDegrees(-45);
+			SetRotationDegrees(-30);
 		}
 
 		// Calculate rotation
-		if (RotationDegrees < 90)
+		if (RotationDegrees < 90 && (Velocity.Y >= 100f || IsOnFloor()))
 		{
 			SetRotationDegrees(RotationDegrees + RotationSpeed * (float)delta);
 		}
@@ -68,4 +69,5 @@ public partial class Bird : CharacterBody2D
 	}
 
 	public bool IsDead { get; private set; } = false;
+	private bool JustDied => !IsDead && GetSlideCollisionCount() > 0;
 }

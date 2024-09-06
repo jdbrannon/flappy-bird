@@ -11,8 +11,9 @@ size = Vector2(96, 638)
 [node name="TopBottomPipe" type="CanvasGroup"]
 
 [node name="TopPipe" type="RigidBody2D" parent="."]
-position = Vector2(0, -400)
+position = Vector2(0, -395)
 collision_layer = 4
+collision_mask = 0
 gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopPipe"]
@@ -25,8 +26,9 @@ texture = ExtResource("1_hacsi")
 flip_v = true
 
 [node name="BottomPipe" type="RigidBody2D" parent="."]
-position = Vector2(0, 400)
+position = Vector2(0, 395)
 collision_layer = 4
+collision_mask = 0
 gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomPipe"]

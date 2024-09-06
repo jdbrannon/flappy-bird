@@ -23,8 +23,8 @@ ScoreNode = NodePath("../Camera2D/Score")
 position = Vector2(640, 360)
 
 [node name="Score" parent="Camera2D" instance=ExtResource("3_tfnox")]
-offset_top = -340.0
-offset_bottom = -304.0
+offset_top = -300.0
+offset_bottom = -264.0
 
 [node name="ScoreAudio" type="AudioStreamPlayer" parent="Camera2D"]
 stream = ExtResource("4_pylj6")
